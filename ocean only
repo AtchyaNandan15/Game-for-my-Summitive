@@ -1,0 +1,147 @@
+ 
+ //These make sure the pictures show up
+var starsize =14;
+noStroke();
+var leftX = 93;
+var rightX = 267;
+var gem = getImage("cute/GemOrange");
+var currentscene =0;
+var redxpos = 39;
+var greenxpos = 39;
+var redthing = getImage("avatars/piceratops-tree");
+var greenthing = getImage("avatars/leafers-tree");
+  
+  // this call the greenthing
+   var greenthing = function (x, y) {
+    this.x = x;
+    this.y = y;
+    this.img = getImage("avatars/leafers-tree");
+    this.sticks = 0;
+};  
+
+
+//this draws the greenthing
+ 
+greenthing.prototype.draw = function() {
+    fill(255, 0, 0);
+    this.y = constrain(this.y, 0, height-50);
+    image(this.img, this.x, this.y, 100, -100);
+}; 
+
+// this makes the greenthing jump
+greenthing.prototype.hop = function()  {        
+    this.img = getImage("avatars/leafers-tree");
+    this.y -= 10;
+};     
+
+// this makes the greenthing fall
+greenthing.prototype.fall = function() {
+    this.img = getImage("avatars/leafers-tree");
+    this.y += 10;
+};
+// this makes the coins
+greenthing.prototype.checkForStickGrab = function(stick) {
+    if ((stick.x >= this.x && stick.x <= (this.x + 105)) &&
+        (stick.y >= this.y && stick.y <= (this.y + 50))) {
+        stick.y = -500;
+        this.sticks++; 
+    }  
+}; 
+
+// this is the function for the coins
+var Stick = function(x, y) {
+    this.x = x;
+    this.y = y;
+};
+
+// this draws the coins
+Stick.prototype.draw = function() {
+    fill(214, 192, 26);
+    ellipse (this.x, this.y, 60, 60);
+    fill(222, 145, 37); 
+    ellipse(this.x, this.y, 49, 48);
+    fill(0, 0, 0);
+    textSize(15);
+    text("$", this.x, this.y, 20, 35);
+    
+    //get the coins going in a certain order
+    rectMode(random);
+ 
+};
+
+
+
+var greenthing = new greenthing(250, 350);
+
+// this creates a loop for the sticks
+var sticks = [];
+for (var i = 0; i < 50; i++) {  
+    sticks.push(new Stick(i * 40 + 300, random(20, 300)));
+}
+
+// this creates the bottom loop
+var oceanXs = [];
+for (var i = 0; i < 25; i++) { 
+    oceanXs.push(i*20);
+}
+// this draw the sky and the white background that looks like it's moving
+draw = function() {
+      background(215, 213, 222);
+   fill(176, 95, 95);
+    rectMode(CORNER);
+    rect(0, height*0.90, width, height*0.10);
+
+
+    // this is a loop that creates the bottom of the game
+    for (var i = 0; i < oceanXs.length; i++) {
+        //image(getImage("avatars/old-spice-man-blue"), oceanXs[i], height*0.88, 54, 94);
+        
+      fill(35, 97, 17);
+ ellipse(oceanXs [i] ,380,20,23);
+        fill(18, 42, 140);
+    ellipse(oceanXs [i], 220, 57, 50);
+    rect(oceanXs [i], 225, 415, 203);
+
+}
+       oceanXs[i] -= 1;
+        if (oceanXs[i] <= -20) {
+            oceanXs[i] = width;
+        }
+    
+
+    // this a loop for the coins
+    for (var i = 0; i < sticks.length; i++) {
+        sticks[i].draw();
+        greenthing.checkForStickGrab(sticks[i]);
+        sticks[i].x -= 1;
+    }
+    
+    // this draws the score board
+    textSize(31);
+    fill(189, 42, 42);
+    text("Score: " + greenthing.sticks, 168, 36);
+    
+    //if (greenthing.sticks/sticks.length >= 1.16) {
+        //textSize(36);
+       // text("YOU WIN!!!!", 100, 200);
+    //}
+    
+    // this is what you press when it jumps and it draws all the function
+    if (keyIsPressed && keyCode === 0) {
+        greenthing.hop();
+    } else {
+        greenthing.fall();
+    }
+      greenthing.draw();  
+
+ 
+};
+
+
+    
+    
+    
+
+    
+    
+    
