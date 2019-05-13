@@ -1,0 +1,184 @@
+
+
+
+
+// Calls the greenthing function
+var space = function (x,y) {
+    this.x =x;
+    this.y =y;
+    this.img = getImage ("avatars/leafers-tree");
+    this.star = 0;
+    
+};
+
+//Draws the creature function
+space.prototype.draw = function() {
+     fill(255, 0, 0);
+     this.y = constrain (this.y, 0, height - 60); 
+     image (this.image, this.x, this.y, 100, -100);
+     };
+     
+     // The creature jumps
+     space.prototype.hop = function () {
+         this.img = getImage ("avatars/leafers-tree");
+         this.y -= 10;
+         };
+         
+// The creature falls
+space.prototype.fall = function () {
+    this.img = getImage ("avatars/leafers-tree");
+    this.y += 10;
+};
+
+// The function for the coins
+space.prototype.checkForStickGrab = function(star) {
+    if ((star.x >= this.x && star.x <= (this.x +105)) &&
+    (star.y >= this.y && star.y <= (this.y + 50))) {
+        star.y -= 100;
+}
+  };
+
+// The function for the coins
+
+var star = function (x,y) {
+    this.x = x;
+    this.y = y;
+};
+
+// The Space and coin drawing
+star.prototype.draw = function() {
+        fill(173, 163, 90);
+    ellipse (this.x, this.y, 30,30);
+  fill(0, 0, 0);
+    textSize(10);
+    text("$", this.x, this.y, 15, 15);
+
+background(17, 6, 43);
+var y = 53;
+
+
+draw = function() {
+    
+};
+draw = function() {
+    
+
+var x = 50;
+while (x < 350) {
+   fill(255, 255, 255);
+    ellipse(x, 59, 5, 6);
+        ellipse(x, 210, 5, 6);
+                ellipse(x, 352, 5, 5);
+                 ellipse(x, 134, 5, 5);
+                ellipse(x, 273, 5, 5);
+                   ellipse(x, 396, 5, 5);
+                      ellipse(x, 9, 5, 5);
+    x += 140;
+}
+
+};
+draw = function() {
+    
+
+
+  ellipse(y,322,51,39);
+
+var x = 2;
+while (x < 350) {
+   fill(255, 255, 255);
+    ellipse(x, 59, 5, 6);
+        ellipse(x, 210, 5, 6);
+                ellipse(x, 352, 5, 5);
+                 ellipse(x, 134, 5, 5);
+                ellipse(x, 273, 5, 5);
+                   ellipse(x, 396, 5, 5);
+                      ellipse(x, 9, 5, 5);
+    x += 74;
+}
+};
+draw = function() {
+     
+          fill(0, 149, 255);
+          ellipse(y,345,90,90);
+           fill(28, 201, 103);
+   ellipse(y,322,51,39);
+    ellipse(y,372,32,17);
+   ellipse(y,2,2,2);
+       ellipse(y,2,2,2);
+       fill(145, 128, 90);
+ellipse(226,145,270,34);
+fill(16, 3, 48);
+ellipse(227,148,210,18);
+fill(158, 143, 81);
+  ellipse(222,141,107,79);
+  noStroke();
+  fill(17, 2, 41,200);
+  ellipse(176,238,415,211);
+  fill(255, 238, 0);
+  ellipse(-98,20,421,376);
+};
+};
+
+// Loop for the coins
+
+var space = new space ( 250, 350); 
+var star1 = [];
+for ( var i = 0; i < 50; i++) {
+    star1.push(new star (i* 40 + 300, random(20, 300)));
+}
+
+// A loop for the bottom
+var gravityXs = [];
+for (var i = 0; i <25; i++) {
+    gravityXs.push(i*20);
+}
+
+
+// Draws the space bottom
+draw = function() {
+     background(17, 6, 43);
+     fill(255, 0, 0);
+     rectMode(CORNER);
+     rect(0, height*1, width, height*1.5);
+     
+     for (var i = 0; i < gravityXs.length; i++) {
+         
+         image(getImage("avatars/aqualine-seed"), gravityXs[i], height*1, 50,90);
+         fill(255, 255, 255);
+         noStroke();
+         rect(gravityXs [i], 385,135,70);
+         }
+         
+         gravityXs[i] -= 1;
+         if (gravityXs[i] <= -20) {
+             gravityXs[i] = width;
+             }
+
+// Draws the star loop
+for (var i =0; i < star1.length; i++) {
+    star1[i].draw();
+    space.checkForStickGrab
+    (star1[i]);
+    star1[i].x -=1;
+}
+
+// Draws the scoreboard
+textSize(30);
+fill(255, 0, 0);
+text("score: " + space.star, 150,30);
+
+//The key that makes it jump
+
+if ( keyIsPressed && keyCode === 0) {
+    space.hop();
+} else {
+    space.fall(); 
+} 
+  space.draw();
+    
+    
+}
+};
+
+
+
