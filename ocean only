@@ -156,7 +156,7 @@ fill(184, 24, 24);
 text("score: "+greenthing.score, 150, 30);
 
     
-  if (greenthing.score/score.length >= ) {
+  if (greenthing.score/score.length >= 0.2) {
       textSize(36);
         text("YOU WIN!!!!", 100, 200);
     }
@@ -169,8 +169,6 @@ if (keyIsPressed && keyCode === 0) {
 greenthing.draw();
 
 };
-
-
     
     
     
