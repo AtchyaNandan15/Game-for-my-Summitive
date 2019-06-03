@@ -1,3 +1,4 @@
+    
 var starsize =14;
 noStroke();
 var leftX = 93;
@@ -14,7 +15,7 @@ var greenthing= function (x,y) {
     this.x =x;
     this.y = y;
     this.img = getImage ("avatars/leafers-tree");
-this.Coin = 0;
+this.coin = 0;
 this.score=0;
 
 };
@@ -40,23 +41,23 @@ greenthing.prototype.fall = function () {
    };
 
 // The function for the fish or coin
-greenthing.prototype.checkForStickGrab = function(Coin) {
-    if ((Coin.x >= this.x && Coin.x <= (this.x + 105)) &&
-        (Coin.y >= this.y && Coin.y <= (this.y + 50))) {
-        Coin.y = -100;
+greenthing.prototype.checkForStickGrab = function(coin) {
+    if ((coin.x >= this.x && coin.x <= (this.x + 105)) &&
+        (coin.y >= this.y && coin.y <= (this.y + 50))) {
+        coin.y = -100;
         //this.fishes++; 
         this.score++;
     }  
 }; 
 
 // The fucntion for the coins
-var Coin = function (x,y) {
+var coin = function (x,y) {
     this.x = x;
     this.y = y;
     };
     
 // The fish and coin drawing
-Coin.prototype.draw = function() {
+coin.prototype.draw = function() {
     fill(173, 163, 90);
     ellipse (this.x, this.y, 35,35);
    fill(0, 0, 0);
@@ -107,10 +108,9 @@ rectMode (random);
 
 var greenthing = new greenthing ( 250, 350);
 
-//2
-var Coin1 = [];
+var coin1 = [];
 for ( var i = 0; i < 50; i++) {
-    Coin1.push( new Coin(i * 40 +  299, random(20,110)));
+    coin1.push( new coin(i * 40 +  299, random(20,110)));
 }
 
 
@@ -144,10 +144,10 @@ if (oceanXs[i] <= -20) {
 }
 
 //Draws The coin Loop
-for (var i = 0; i < Coin.length; i++) {
-        Coin1[i].draw();
-        greenthing.checkForStickGrab(Coin1[i]);
-        Coin1[i].x -= 1;
+for (var i = 0; i < coin1.length; i++) {
+        coin1[i].draw();
+        greenthing.checkForStickGrab(coin1[i]);
+        coin1[i].x -= 1;
     }
     
 // Draws the scoreboard
