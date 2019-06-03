@@ -1,0 +1,172 @@
+var starsize =14;
+noStroke();
+var leftX = 93;
+var rightX = 267;
+var currentscene =0;
+var redxpos = 39;
+var greenxpos = 39;
+var redthing = getImage("avatars/leafers-tree");
+var greenthing = getImage("avatars/leafers-tree");
+var score = 0;
+
+// Calls the greenthing function
+var greenthing= function (x,y) {
+    this.x =x;
+    this.y = y;
+    this.img = getImage ("avatars/leafers-tree");
+this.Coin = 0;
+this.score=0;
+
+};
+
+// Draws the greenthing
+
+greenthing.prototype.draw = function() {
+     fill(255, 0, 0);
+     this.y = constrain ( this.y, 0, height - 60);
+     image ( this.img, this.x, this.y, 100, -100);
+};
+
+// The greenthing Jumps
+greenthing.prototype.hop = function () {
+     this.img = getImage ("avatars/leafers-ultimate");
+    this.y -= 10;
+};
+
+// The greenthing Hops
+greenthing.prototype.fall = function () {
+   this.img = getImage ( "avatars/leafers-tree");
+   this.y += 10;
+   };
+
+// The function for the fish or coin
+greenthing.prototype.checkForStickGrab = function(Coin) {
+    if ((Coin.x >= this.x && Coin.x <= (this.x + 105)) &&
+        (Coin.y >= this.y && Coin.y <= (this.y + 50))) {
+        Coin.y = -100;
+        //this.fishes++; 
+        this.score++;
+    }  
+}; 
+
+// The fucntion for the coins
+var Coin = function (x,y) {
+    this.x = x;
+    this.y = y;
+    };
+    
+// The fish and coin drawing
+Coin.prototype.draw = function() {
+    fill(173, 163, 90);
+    ellipse (this.x, this.y, 35,35);
+   fill(0, 0, 0);
+    textSize(12);
+    text("$", this.x, this.y, 18, 39);
+    
+    for (var x =0;x < 400; x+=47) {
+    fill(37, 42, 128);
+    ellipse(x, 220, 57, 50);
+    rect(0, 229, 409, 203);
+    }
+    
+fill(16, 92, 21);
+    triangle(6,682,65,336,56,255);
+    triangle(209, 682, 73, 320, 7, 230);
+    triangle(300,682, 284,336, 310, 230);
+    triangle(333,682,265,336,233,284);
+
+        //fish function
+        var drawFish = function(centerX, centerY, bodyLength, bodyHeight, bodyColor, tailWidth, tailHeight){
+
+    noStroke();
+    fill(bodyColor);
+    // body
+    ellipse(centerX, centerY, bodyLength, bodyHeight);
+    // tail
+    var tailWidth = bodyLength/4;
+    var tailHeight = bodyHeight/2;
+    triangle(centerX-bodyLength/2, centerY,
+             centerX-bodyLength/2-tailWidth, centerY-tailHeight,
+             centerX-bodyLength/2-tailWidth, centerY+tailHeight);
+    // eye
+    fill(33, 33, 33);
+    ellipse(centerX+bodyLength/4, centerY, bodyHeight/5, bodyHeight/5);
+    };
+
+    drawFish(100, 311, 74, 67, color(133, 13, 109)); 
+    drawFish(357, 356, 38, 23, color(222, 138, 11));
+    drawFish(346, 259, 41, 20, color(204, 12, 12));
+    drawFish(124, 245, 50, 34, color(153, 89, 136));
+    drawFish(103, 327, 34, 20, color(217, 240, 88));
+
+rectMode (random);
+};
+
+
+// The loop for the Fish
+
+var greenthing = new greenthing ( 250, 350);
+
+//2
+var Coin1 = [];
+for ( var i = 0; i < 50; i++) {
+    Coin1.push( new Coin(i * 40 +  299, random(20,110)));
+}
+
+
+//A loop for the bottom
+var oceanXs = [];
+for (var i = 0; i < 25; i++) {
+    oceanXs.push(i*20);
+}
+
+
+// Draws the sky
+draw = function() {
+     background(182, 213, 214);
+     fill(150, 144, 88);
+     rectMode(CORNER);
+     rect(0, height*1, width,height*1.5);
+//};
+
+//Loop for the moving bottom
+
+for (var i = 0; i < oceanXs.length; i++) {
+    
+    image(getImage("avatars/aqualine-seed"), oceanXs[i], height*1, 50, 90);
+    fill (141, 222, 106);
+    rect(oceanXs [i], 271,200,200);
+}
+
+oceanXs[i] -= 1;
+if (oceanXs[i] <= -20) {
+    oceanXs[i] = width;
+}
+
+//Draws The coin Loop
+for (var i = 0; i < Coin.length; i++) {
+        Coin1[i].draw();
+        greenthing.checkForStickGrab(Coin1[i]);
+        Coin1[i].x -= 1;
+    }
+    
+// Draws the scoreboard
+textSize(30);
+fill(184, 24, 24);
+text("score: "+greenthing.score, 150, 30);
+
+    
+  if (greenthing.score/score.length >= 0.2) {
+      textSize(36);
+        text("YOU WIN!!!!", 100, 200);
+    }
+//The key that makes it jump
+if (keyIsPressed && keyCode === 0) {
+    greenthing.hop();
+} else {
+    greenthing.fall();
+}
+greenthing.draw();
+
+};
+    
