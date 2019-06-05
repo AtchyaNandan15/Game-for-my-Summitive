@@ -14,7 +14,7 @@ var greenthing= function (x,y) {
 this.x =x;
 this.y = y;
 this.img = getImage ("avatars/leafers-tree");
-this.fish = 0;
+this.coin = 0;
 this.score=0;
 };
 
@@ -37,13 +37,13 @@ greenthing.prototype.fall = function () {
    this.y += 10;
    };
 
-// The function for the fish or coin
-greenthing.prototype.checkForStickGrab = function(fish) {
-    if ((fish.x >= this.x && fish.x <= (this.x + 105)) &&
-        (fish.y >= this.y && fish.y <= (this.y + 50))) {
-        fish.y = -100;
+// The function for the coin
+greenthing.prototype.checkForStickGrab = function(coin) {
+    if ((coin.x >= this.x && coin.x <= (this.x + 105)) &&
+        (coin.y >= this.y && coin.y <= (this.y + 50))) {
+        coin.y = -100;
         //this.fishes++; 
-        this.score++;
+        coin.score++;
     }  
 };
 
@@ -59,7 +59,7 @@ greenthing.prototype.checkForBadGrab = function(redcoin) {
 
 
 // The fucntion for the coins
-var fish = function (x,y) {
+var coin = function (x,y) {
     this.x = x;
     this.y = y;
 
@@ -67,7 +67,7 @@ var fish = function (x,y) {
     };
     
       // The fish and coin drawing
-fish.prototype.draw = function() {
+coin.prototype.draw = function() {
     fill(173, 163, 90);
     ellipse (this.x, this.y, 35,35);
    fill(0, 0, 0);
@@ -134,9 +134,9 @@ redcoin.prototype.draw = function() {
 
 // The loop for the Fish
 var greenthing = new greenthing (250, 350);
-var fish1 = [];
+var coin1 = [];
 for ( var i = 0; i < 50; i++) {
-    fish1.push( new fish(i * 40 +  299, random(20,110)));
+    coin1.push( new coin(i * 40 +  299, random(20,110)));
 }
 
 // The loop for the redcoin
@@ -169,10 +169,10 @@ if (oceanXs[i] <= -20) {
 
 
 //Draws The coin Loop
-for (var i = 0; i < fish1.length; i++) {
-        fish1[i].draw();
-        greenthing.checkForStickGrab(fish1[i]);
-        fish1[i].x -= 1;
+for (var i = 0; i < coin1.length; i++) {
+        coin1[i].draw();
+        greenthing.checkForStickGrab(coin1[i]);
+        coin1[i].x -= 1;
     }
 
 // Draws the redcoin loop
@@ -188,7 +188,7 @@ textSize(30);
 fill(184, 24, 24);
 text("score: "+greenthing.score, 150, 30);
 
- //if (greenthing.fish/fish.length >= 0.6) {
+ //if (greenthing.coin/coin1.length >= 0.6) {
  //     textSize(36);
     //    text("YOU WIN!!!!", 100, 200);
    // }
