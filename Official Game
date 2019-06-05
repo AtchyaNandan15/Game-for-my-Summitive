@@ -167,6 +167,6 @@ if (keyIsPressed && keyCode === 0) {
     greenthing.fall();
 }
 greenthing.draw();
-
+//
 };
     
