@@ -1,4 +1,3 @@
-    
 var starsize =14;
 noStroke();
 var leftX = 93;
@@ -10,28 +9,32 @@ var redthing = getImage("avatars/leafers-tree");
 var greenthing = getImage("avatars/leafers-tree");
 var score = 0;
 
+
+  
 // Calls the greenthing function
 var greenthing= function (x,y) {
-    this.x =x;
-    this.y = y;
-    this.img = getImage ("avatars/leafers-tree");
+this.x =x;
+this.y = y;
+this.img = getImage ("avatars/leafers-tree");
 this.coin = 0;
 this.score=0;
-
 };
 
-// Draws the greenthing
 
+
+// Draws the greenthing
 greenthing.prototype.draw = function() {
      fill(255, 0, 0);
      this.y = constrain ( this.y, 0, height - 60);
      image ( this.img, this.x, this.y, 100, -100);
 };
 
+
+
 // The greenthing Jumps
 greenthing.prototype.hop = function () {
      this.img = getImage ("avatars/leafers-ultimate");
-    this.y -= 10;
+    this.y -= 15;
 };
 
 // The greenthing Hops
@@ -40,30 +43,44 @@ greenthing.prototype.fall = function () {
    this.y += 10;
    };
 
-// The function for the fish or coin
+// The function for the coin
 greenthing.prototype.checkForStickGrab = function(coin) {
     if ((coin.x >= this.x && coin.x <= (this.x + 105)) &&
         (coin.y >= this.y && coin.y <= (this.y + 50))) {
         coin.y = -100;
         //this.fishes++; 
-        this.score++;
+        //coin.score++;
+        this.score++;}  
+};
+
+// Negative coins
+greenthing.prototype.checkForBadGrab = function(redcoin) {
+    if ((redcoin.x >= this.x && redcoin.x <= (this.x + 40)) &&
+        (redcoin.y >= this.y && redcoin.y <= (this.y + 40))) {
+         redcoin.y = -400;
+        //this.fishes++; 
+        this.score--;
     }  
 }; 
+
 
 // The fucntion for the coins
 var coin = function (x,y) {
     this.x = x;
     this.y = y;
+
+
     };
     
-// The fish and coin drawing
+      // The fish and coin drawing
 coin.prototype.draw = function() {
     fill(173, 163, 90);
     ellipse (this.x, this.y, 35,35);
    fill(0, 0, 0);
     textSize(12);
     text("$", this.x, this.y, 18, 39);
-    
+
+
     for (var x =0;x < 400; x+=47) {
     fill(37, 42, 128);
     ellipse(x, 220, 57, 50);
@@ -103,16 +120,38 @@ fill(16, 92, 21);
 rectMode (random);
 };
 
+// Redcoin fucntion
+var redcoin = function (x,y) {
+    this.x = x;
+    this.y = y;
+    
+};
+
+
+// Redcoin function draw
+redcoin.prototype.draw = function() {
+         fill(247, 3, 44);
+    ellipse(this.x, this.y, 30,30);
+   fill(0, 0, 0);
+    textSize(12);
+    text("-", this.x, this.y, 5, 54);
+    rectMode (CENTER);
+};
+
 
 // The loop for the Fish
-
-var greenthing = new greenthing ( 250, 350);
-
+var greenthing = new greenthing (250, 350);
 var coin1 = [];
 for ( var i = 0; i < 50; i++) {
-    coin1.push( new coin(i * 40 +  299, random(20,110)));
+    coin1.push( new coin(i * 40 +  299, random(20,213)));
 }
 
+// The loop for the redcoin
+//var redcoin = new redcoin ( 256, 360);
+var redcoin1 = [];
+for ( var i = 0; i < 25; i++) {
+    redcoin1.push( new redcoin(i * 40 +  329, random(20,415)));
+}
 
 //A loop for the bottom
 var oceanXs = [];
@@ -120,14 +159,13 @@ for (var i = 0; i < 25; i++) {
     oceanXs.push(i*20);
 }
 
-
-// Draws the sky
 draw = function() {
-     background(182, 213, 214);
-     fill(150, 144, 88);
+ background(170, 227, 219);
+ fill(150, 144, 88);
      rectMode(CORNER);
-     rect(0, height*1, width,height*1.5);
-//};
+   rect(0, height*1, width,height*9.3);
+  
+
 
 //Loop for the moving bottom
 
@@ -138,10 +176,12 @@ for (var i = 0; i < oceanXs.length; i++) {
     rect(oceanXs [i], 271,200,200);
 }
 
+// Ocean loop
 oceanXs[i] -= 1;
 if (oceanXs[i] <= -20) {
     oceanXs[i] = width;
 }
+
 
 //Draws The coin Loop
 for (var i = 0; i < coin1.length; i++) {
@@ -149,24 +189,30 @@ for (var i = 0; i < coin1.length; i++) {
         greenthing.checkForStickGrab(coin1[i]);
         coin1[i].x -= 1;
     }
+
+// Draws the redcoin loop
+    for (var i = 0; i < redcoin1.length; i++) {
+        redcoin1[i].draw();
+        greenthing.checkForBadGrab(redcoin1[i]);
+        redcoin1[i].x -= 1;
+    }
+    
     
 // Draws the scoreboard
 textSize(30);
 fill(184, 24, 24);
 text("score: "+greenthing.score, 150, 30);
 
+ //if (greenthing.coin/coin1.length >= 0.6) {
+ //     textSize(36);
+    //    text("YOU WIN!!!!", 100, 200);
+   // }
     
-  if (greenthing.score/score.length >= 0.2) {
-      textSize(36);
-        text("YOU WIN!!!!", 100, 200);
-    }
-//The key that makes it jump
-if (keyIsPressed && keyCode === 0) {
+    if (keyIsPressed && keyCode === 0) {
     greenthing.hop();
-} else {
+} else {            
     greenthing.fall();
 }
-greenthing.draw();
-//
-};
+greenthing.draw();};
+
     
