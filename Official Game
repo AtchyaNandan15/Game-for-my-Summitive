@@ -163,7 +163,7 @@ draw = function() {
  background(170, 227, 219);
  fill(150, 144, 88);
      rectMode(CORNER);
-   rect(0, height*1, width,height*9.3);
+   rect(0, height*4, width,height*12.6);
   
 
 
@@ -203,10 +203,11 @@ textSize(30);
 fill(184, 24, 24);
 text("score: "+greenthing.score, 150, 30);
 
- //if (greenthing.coin/coin1.length >= 0.6) {
- //     textSize(36);
-    //    text("YOU WIN!!!!", 100, 200);
-   // }
+ if (this.score++>= 0.90) {
+    textSize(36);
+    fill(190, 132, 201);
+        text("Question Time!!!", width/63, height/3);
+   }
     
     if (keyIsPressed && keyCode === 0) {
     greenthing.hop();
@@ -214,4 +215,5 @@ text("score: "+greenthing.score, 150, 30);
     greenthing.fall();
 }
 greenthing.draw();};
+
     
