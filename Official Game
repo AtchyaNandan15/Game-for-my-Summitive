@@ -34,7 +34,7 @@ greenthing.prototype.draw = function() {
 // The greenthing Jumps
 greenthing.prototype.hop = function () {
      this.img = getImage ("avatars/leafers-ultimate");
-    this.y -= 15;
+    this.y -= 10;
 };
 
 // The greenthing Hops
@@ -213,6 +213,5 @@ text("score: "+greenthing.score, 150, 30);
 } else {            
     greenthing.fall();
 }
-greenthing.draw();}; 
-
+greenthing.draw();};
     
