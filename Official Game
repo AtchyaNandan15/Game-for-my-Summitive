@@ -213,6 +213,6 @@ text("score: "+greenthing.score, 150, 30);
 } else {            
     greenthing.fall();
 }
-greenthing.draw();};
+greenthing.draw();}; 
 
     
