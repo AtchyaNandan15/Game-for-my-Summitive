@@ -9,6 +9,8 @@ var redthing = getImage("avatars/leafers-tree");
 var greenthing = getImage("avatars/leafers-tree");
 var score = 0;
 
+
+  
 // Calls the greenthing function
 var greenthing= function (x,y) {
 this.x =x;
@@ -18,12 +20,16 @@ this.coin = 0;
 this.score=0;
 };
 
+
+
 // Draws the greenthing
 greenthing.prototype.draw = function() {
      fill(255, 0, 0);
      this.y = constrain ( this.y, 0, height - 60);
      image ( this.img, this.x, this.y, 100, -100);
 };
+
+
 
 // The greenthing Jumps
 greenthing.prototype.hop = function () {
@@ -132,18 +138,19 @@ redcoin.prototype.draw = function() {
     rectMode (CENTER);
 };
 
+
 // The loop for the Fish
 var greenthing = new greenthing (250, 350);
 var coin1 = [];
 for ( var i = 0; i < 50; i++) {
-    coin1.push( new coin(i * 40 +  299, random(20,110)));
+    coin1.push( new coin(i * 40 +  299, random(20,213)));
 }
 
 // The loop for the redcoin
 //var redcoin = new redcoin ( 256, 360);
 var redcoin1 = [];
-for ( var i = 0; i < 5; i++) {
-    redcoin1.push( new redcoin(i * 40 +  299, random(20,110)));
+for ( var i = 0; i < 16; i++) {
+    redcoin1.push( new redcoin(i * 40 +  329, random(20,97)));
 }
 
 //A loop for the bottom
@@ -152,12 +159,13 @@ for (var i = 0; i < 25; i++) {
     oceanXs.push(i*20);
 }
 
-// Draws the sky
 draw = function() {
-    fill(150, 144, 88);
+ background(170, 227, 219);
+ fill(150, 144, 88);
      rectMode(CORNER);
-     rect(0, height*1, width,height*9.3);
-};
+   rect(0, height*1, width,height*9.3);
+  
+
 
 //Loop for the moving bottom
 
@@ -205,5 +213,4 @@ text("score: "+greenthing.score, 150, 30);
 } else {            
     greenthing.fall();
 }
-greenthing.draw();
-
+greenthing.draw();};
